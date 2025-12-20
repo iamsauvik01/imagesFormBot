@@ -1,24 +1,29 @@
 import os
-from utils.image_utils import preprocess_image
 from ocr.ocr_engine import extract_text
 
-IMAGE_NAME = "sample.jpg"
+IMAGES_DIR = "images"
 
 def main():
-    input_image_path = os.path.join("images", IMAGE_NAME)
-    processed_image_path = os.path.join("processed_images", IMAGE_NAME)
+    image_files = [
+        f for f in os.listdir(IMAGES_DIR)
+        if f.lower().endswith(".jpg")
+    ]
 
-    os.makedirs("processed_images", exist_ok=True)
+    if not image_files:
+        print("❌ No JPG images found in images folder")
+        return
 
-    print("🔹 Preprocessing image...")
-    preprocess_image(input_image_path, processed_image_path)
+    for image_name in image_files:
+        image_path = os.path.join(IMAGES_DIR, image_name)
 
-    print("🔹 Running OCR...")
-    text = extract_text(processed_image_path)
+        print(f"\n📷 Processing: {image_name}")
+        print("🔹 Running OCR...")
 
-    print("\n====== EXTRACTED TEXT ======\n")
-    print(text)
-    print("\n===========================\n")
+        text = extract_text(image_path)
+
+        print("\n====== EXTRACTED TEXT ======")
+        print(text)
+        print("============================")
 
 if __name__ == "__main__":
     main()
