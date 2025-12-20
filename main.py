@@ -1,7 +1,7 @@
 import os
 from ocr.ocr_engine import extract_text
 
-IMAGES_DIR = "images"
+IMAGES_DIR = "testimage"
 
 def main():
     image_files = [
