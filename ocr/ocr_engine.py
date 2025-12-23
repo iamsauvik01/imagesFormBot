@@ -1,11 +1,16 @@
-import easyocr
+import pytesseract
+from PIL import Image
 
-# Initialize once (important for performance)
-reader = easyocr.Reader(['en'], gpu=False)
+# REQUIRED on Windows – update only if your path is different
+pytesseract.pytesseract.tesseract_cmd = (
+    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+)
 
 def extract_text(image_path):
-    """
-    Extracts text from an image using EasyOCR
-    """
-    results = reader.readtext(image_path, detail=0)
-    return "\n".join(results)
+    img = Image.open(image_path)
+
+    text = pytesseract.image_to_string(img, lang="eng")
+    return text
+
+# if __name__ == "__main__":
+#     extract_text()

@@ -10,7 +10,7 @@ def fetch_qr_images(page):
     options = dropdown.locator("option")
     count = options.count()
 
-    for i in range(1145, count):
+    for i in range(1, count):
         value = options.nth(i).get_attribute("value")
         if not value:
             continue

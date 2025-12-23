@@ -8,9 +8,14 @@ from openpyxl import Workbook,load_workbook
 
 # wb.save("output.xlsx")
 
-wb = load_workbook("output.xlsx")
 
-ws = wb["Form Data"]
-ws.append(['Cristiano','Ronaldo',40,80000000,'Best Footballer'])
+def excel_write(rows):  
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Form Data"
+    
+    for data in rows:
+        ws.append(data)
 
-wb.save("output.xlsx")
+    wb.save("output.xlsx")
+    
