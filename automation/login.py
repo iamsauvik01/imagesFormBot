@@ -1,6 +1,7 @@
 import os
 from playwright.sync_api import sync_playwright
 from automation.fetch_images import fetch_qr_images
+from automation.fill_form import fill_forms_from_excel
 
 LOGIN_URL = "https://dataincryptpro.online/login"
 
@@ -13,7 +14,7 @@ def automated_login_and_fetch():
         browser = p.chromium.launch(headless=False)
         context = browser.new_context()
         page = context.new_page()
-
+        page.wait_for_load_state("domcontentloaded")
         # Step 1: Login
         page.goto(LOGIN_URL)
         page.fill('input[name="username"]', USERNAME)
@@ -32,7 +33,9 @@ def automated_login_and_fetch():
         print("✅ QR generation page loaded")
 
         # Step 5: Fetch images
-        fetch_qr_images(page)
+        # fetch_qr_images(page)
+        
+        fill_forms_from_excel(page)
 
         context.storage_state(path="auth.json")
         browser.close()
