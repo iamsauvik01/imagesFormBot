@@ -6,7 +6,7 @@ def read_excel_rows(path="data.xlsx"):
     sheet = wb["dataSheet"]
 
     rows = []
-    for row in sheet.iter_rows(min_row=4, values_only=True):
+    for row in sheet.iter_rows(min_row=1092 ,values_only=True):
         if not row[0]:
             continue
         rows.append({
